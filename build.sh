@@ -5,6 +5,7 @@ set -ex
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 install package with apt
 sudo apt update
+sudo apt install -y curl
 sudo apt install -y git-all
 sudo apt install -y neovim
 # Git credentials manager
