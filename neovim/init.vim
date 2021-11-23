@@ -15,3 +15,9 @@ set hidden
 set mouse=a
 set scrolloff=8
 set sidescrolloff=8
+
+" --- Key mappings
+
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
