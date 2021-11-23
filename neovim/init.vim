@@ -10,4 +10,8 @@ set smartindent
 set number
 set numberwidth=4
 set relativenumber
-
+set termguicolors
+set hidden
+set mouse=a
+set scrolloff=8
+set sidescrolloff=8
