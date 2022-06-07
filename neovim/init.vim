@@ -11,12 +11,17 @@ set number
 set numberwidth=4
 set relativenumber
 set termguicolors
-set hidden
+set list
+set listchars=trail:·
 set mouse=a
 set scrolloff=8
 set sidescrolloff=8
+set encoding=UTF-8
+set wildmenu
+set wildmode=longest,list,full
+set hidden
 
-" --- Key mappings
+"/ --- Key mappings
 
 " Reselect visual selection after indenting
 vnoremap < <gv
@@ -34,8 +39,20 @@ endif
 call plug#begin(data_dir . '/plugins')
 
 source ~/.config/nvim/plugins/dracula.vim
+" Status bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Multiple language support
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
 " Allow config to happen after loaded plugins
 doautocmd User PlugLoaded
+
+" Miscellaneous
+
+" spell check for git commits
+autocmd FileType gitcommit setlocal spell
+
+
