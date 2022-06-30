@@ -46,7 +46,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 " https://github.com/tpope/vim-surround
 Plug 'tpope/vim-surround'
+" Title case. Title case a line with gzz
 Plug 'christoomey/vim-titlecase'
+" Easy aligning
+source ~/.config/nvim/plugins/vim-easy-align.vim
 
 call plug#end()
 
