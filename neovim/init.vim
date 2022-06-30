@@ -40,10 +40,13 @@ call plug#begin(data_dir . '/plugins')
 
 source ~/.config/nvim/plugins/dracula.vim
 " Status bar
-Plug 'vim-airline/vim-airline'
+source ~/.config/nvim/plugins/airline.vim
 Plug 'vim-airline/vim-airline-themes'
 " Multiple language support
 Plug 'sheerun/vim-polyglot'
+" https://github.com/tpope/vim-surround
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-titlecase'
 
 call plug#end()
 
@@ -52,7 +55,9 @@ doautocmd User PlugLoaded
 
 " Miscellaneous
 
-" spell check for git commits
+" spell check for git commits and markdown. It can be annoying if this is
+" enabled all the time.
 autocmd FileType gitcommit setlocal spell
+autocmd FileType markdown  setlocal spell
 
 

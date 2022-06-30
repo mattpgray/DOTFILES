@@ -19,3 +19,5 @@ git config --global credential.helper /usr/share/doc/git/contrib/credential/libs
 cd $SCRIPTPATH
 . ./neovim/setup.sh
 
+# change
+
