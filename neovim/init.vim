@@ -59,5 +59,7 @@ doautocmd User PlugLoaded
 " enabled all the time.
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown  setlocal spell
+autocmd FileType gitcommit setlocal complete+=kspell
+autocmd FileType markdown  setlocal complete+=kspell
 
 
