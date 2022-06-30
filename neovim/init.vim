@@ -50,6 +50,9 @@ Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-titlecase'
 " Easy aligning
 source ~/.config/nvim/plugins/vim-easy-align.vim
+" Render markdown file in browser. Call :MarkdownPreview
+" https://github.com/iamcco/markdown-preview.nvim
+source ~/.config/nvim/plugins/markdown-preview.vim
 
 call plug#end()
 
