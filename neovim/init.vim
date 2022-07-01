@@ -1,3 +1,14 @@
+" Functions for local vim config plugins.
+
+function SourceIfExists(file)
+  if filereadable(expand(a:file))
+    echom "Sourcing custom file: " a:file
+    exec "source " . a:file
+  endif
+endfunction
+
+call SourceIfExists("~/.config/nvim/local/pre-init.vim")
+
 " --- General
 
 syntax on
@@ -27,6 +38,7 @@ set hidden
 vnoremap < <gv
 vnoremap > >gv
 
+
 " --- Plugins
 
 " Auto install vim plug
@@ -54,6 +66,8 @@ source ~/.config/nvim/plugins/vim-easy-align.vim
 " https://github.com/iamcco/markdown-preview.nvim
 source ~/.config/nvim/plugins/markdown-preview.vim
 
+call SourceIfExists("~/.config/nvim/local/plugins.vim")
+
 call plug#end()
 
 " Allow config to happen after loaded plugins
@@ -68,4 +82,5 @@ autocmd FileType markdown  setlocal spell
 autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown  setlocal complete+=kspell
 
+call SourceIfExists("~/.config/nvim/local/post-init.vim")
 
