@@ -1,13 +1,22 @@
 " Functions for local vim config plugins.
 
+let local_config_dir = finddir(".nvim", "." . ";")
+
 function SourceIfExists(file)
   if filereadable(expand(a:file))
-    echom "Sourcing custom file: " a:file
     exec "source " . a:file
   endif
 endfunction
 
-call SourceIfExists("~/.config/nvim/local/pre-init.vim")
+" Can add config from local machine and from local dir.
+function SourceConfigFile(filename)
+  call SourceIfExists("~/.config/nvim/local/" . a:filename)
+  if !empty(g:local_config_dir)
+    call SourceIfExists(g:local_config_dir . "/" . a:filename)
+  endif
+endfunction
+
+call SourceConfigFile("pre-init.vim")
 
 " --- General
 
@@ -66,7 +75,7 @@ source ~/.config/nvim/plugins/vim-easy-align.vim
 " https://github.com/iamcco/markdown-preview.nvim
 source ~/.config/nvim/plugins/markdown-preview.vim
 
-call SourceIfExists("~/.config/nvim/local/plugins.vim")
+call SourceConfigFile("plugins.vim")
 
 call plug#end()
 
@@ -82,5 +91,5 @@ autocmd FileType markdown  setlocal spell
 autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown  setlocal complete+=kspell
 
-call SourceIfExists("~/.config/nvim/local/post-init.vim")
+call SourceConfigFile("post-init.vim")
 
