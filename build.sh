@@ -18,6 +18,7 @@ git config --global credential.helper /usr/share/doc/git/contrib/credential/libs
 # Setup other packages
 cd $SCRIPTPATH
 . ./neovim/setup.sh
+git config --global core.editor "nvim"
 
 # change
 
