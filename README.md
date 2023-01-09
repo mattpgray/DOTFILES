@@ -5,7 +5,5 @@ Dotfiles repo for quick setup of a new linux machine
 
 The next time I use the DOTFILES I need to check the neovim config works. Need to test:
 
-- the correct version of neovim in installed. Needs to be a version that is high enough to use 
-  `init.lua`
 - all required tools/programs are installed so that neovim can work. E.g. `gcc` etc. 
 

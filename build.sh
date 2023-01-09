@@ -7,7 +7,6 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 sudo apt update
 sudo apt install -y curl
 sudo apt install -y git-all
-sudo apt install -y neovim
 # Git credentials manager
 sudo apt install -y gcc make
 sudo apt install -y libsecret-1-0 libsecret-1-dev
