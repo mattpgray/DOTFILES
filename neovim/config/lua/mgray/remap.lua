@@ -47,7 +47,9 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Replace the current word in the entire buffer
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%sno/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- Replace the current selection in the entire buffer. Does not work when selection contains '<>'
+vim.keymap.set("v", "<leader>s", [["hy:%sno/\<<C-r>h\>/<C-r>h/gI<Left><Left><Left>]])
 
 -- Set the current file to executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })

@@ -4,6 +4,9 @@ set -ex
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Install dependency ripgrep
+sudo apt-get install -y ripgrep
+
 # Install neovim
 sudo apt purge -y neovim || true
 sudo apt purge -y neovim-runtime || true
