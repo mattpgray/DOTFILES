@@ -9,15 +9,9 @@ sudo apt install -y curl
 sudo apt install -y git-all
 # Git credentials manager
 sudo apt install -y gcc make
-sudo apt install -y libsecret-1-0 libsecret-1-dev
-cd /usr/share/doc/git/contrib/credential/libsecret
-sudo make
-git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
 # Setup other packages
 cd $SCRIPTPATH
 . ./neovim/setup.sh
-git config --global core.editor "nvim"
-
-# change
+. ./git/setup.sh
 
