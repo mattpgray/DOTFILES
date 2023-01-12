@@ -1,8 +1,11 @@
 function SetGoTag(tag)
-    require('lspconfig')['gopls'].setup {
+    local lspconfig = require'lspconfig'
+    lspconfig.gopls.setup{
+        -- I am hoping this reattaches the shortcuts that I add at the start.
+        on_attach = OnAttach,
         settings = {
-            ["gopls"] = {
-                buildFlags = { "-tags=" .. tag },
+            gopls =  {
+                buildFlags =  {"-tags=" .. tag}
             }
         }
     }
