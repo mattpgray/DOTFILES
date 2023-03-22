@@ -33,7 +33,7 @@ mkdir -p ~/.fonts \
 # Install fonts
 FONT_NAME=FiraCodeRegular
 FONT_FILE=~/.fonts/${FONT_NAME}.otf 
-rm ${FONT_FILE}
+rm ${FONT_FILE} || true
 curl -fLo "${FONT_FILE}" \
 https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
 

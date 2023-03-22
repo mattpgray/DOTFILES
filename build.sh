@@ -6,8 +6,7 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 # Setup other packages
 cd $SCRIPTPATH
-. ./install/setup.sh
+. ./install.sh
 . ./neovim/setup.sh
 . ./git/setup.sh
-. ./fonts.sh
 
