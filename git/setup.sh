@@ -11,5 +11,5 @@ git config --global alias.fixup '!sh -c '"'"'(git diff-files --quiet || (echo Un
 git config --global alias.sign '!re() { git rebase --exec '"'"'git commit --amend --no-edit -n -S'"'"' -i  $1; }; re'
 
 # Interactive git branch switching
-git config --global alias.checkoutinteractive '!git checkout $(git branch -a | fzf | xargs)'
+git config --global alias.checkoutinteractive '!git checkout $(git branch $@ | fzf | xargs)'
 
