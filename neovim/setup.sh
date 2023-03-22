@@ -4,17 +4,6 @@ set -ex
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# Install dependency ripgrep
-sudo apt-get install -y ripgrep
-
-# Install neovim
-sudo apt purge -y neovim || true
-sudo apt purge -y neovim-runtime || true
-TEMP_DEB="$(mktemp)".deb
-wget -O "$TEMP_DEB" https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-sudo apt install "$TEMP_DEB"
-rm -f "$TEMP_DEB"
-
 # Install packer for dependencies
 rm -fr ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
