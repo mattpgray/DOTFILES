@@ -53,3 +53,7 @@ vim.keymap.set("v", "<leader>s", [["hy:%sno/\<<C-r>h\>/<C-r>h/gI<Left><Left><Lef
 
 -- Set the current file to executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- Slightly better horizontal scrolling for long lines without needing to go by word or char
+vim.keymap.set("n", "<C-l>", "20zl")
+vim.keymap.set("n", "<C-h>", "20zh")

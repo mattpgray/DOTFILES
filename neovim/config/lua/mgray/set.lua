@@ -28,5 +28,10 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "100"
 
+vim.opt.list = true
+vim.opt.listchars = {
+    tab = "» ",
+    space = "·",
+}
 vim.g.mapleader = " "
 

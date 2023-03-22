@@ -2,7 +2,7 @@ local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
 -- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -13,7 +13,7 @@ lsp.configure('sumneko_lua', {
 })
 
 lsp.ensure_installed({
-    'sumneko_lua',
+    'lua_ls',
     'rust_analyzer'
 })
 
@@ -48,3 +48,12 @@ end
 lsp.on_attach(OnAttach)
 
 lsp.setup()
+
+local cfg = { bind = true }
+require "lsp_signature".setup(cfg)
+
+vim.diagnostic.config({
+    update_in_insert = true,
+    virtual_text = true
+})
+
