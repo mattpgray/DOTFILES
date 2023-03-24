@@ -16,6 +16,10 @@ cp  ${SCRIPT_DIR}/config/lua/mgray/packer.lua ~/.config/nvim/init.lua
 
 # Run packer sync on first run
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+# Install the spell checker on the first run. This is takes too long to do every time.
+# TODO: Learn how to spel.
+echo "Installing coc-spell-checker. The logs are misleading. Please wait..."
+nvim --headless +"CocInstall -sync coc-spell-checker|qa"
 
 # Copy all config
 rm -fr ~/.config/nvim

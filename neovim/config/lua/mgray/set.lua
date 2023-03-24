@@ -26,6 +26,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.opt.textwidth = 100 -- Much more sensible text width for >=2023
 vim.opt.colorcolumn = "100"
 
 vim.opt.list = true
@@ -35,3 +36,7 @@ vim.opt.listchars = {
 }
 vim.g.mapleader = " "
 
+-- Because I am a big dumb idiot
+vim.opt.spelllang = 'en_us' -- ew
+-- Uncomment for default spelling 
+-- vim.opt.spell = true

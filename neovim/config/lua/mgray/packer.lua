@@ -53,4 +53,6 @@ return require('packer').startup(function(use)
     use 'junegunn/vim-easy-align'
     use 'tpope/vim-abolish'
     use 'tpope/vim-surround'
+    -- joining the dark side because I am a big dumb idiot that needs to spell check everything.
+    use {'neoclide/coc.nvim', branch = 'release', }
 end)
