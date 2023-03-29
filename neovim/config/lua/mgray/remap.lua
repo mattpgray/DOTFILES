@@ -57,3 +57,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- Slightly better horizontal scrolling for long lines without needing to go by word or char
 vim.keymap.set("n", "<C-l>", "20zl")
 vim.keymap.set("n", "<C-h>", "20zh")
+
+-- Allow for switching out of terminals and exiting terminal mode easily
+-- Why aren't these the defaults?
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], { noremap = true })
