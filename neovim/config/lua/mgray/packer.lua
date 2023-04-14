@@ -54,5 +54,17 @@ return require('packer').startup(function(use)
     use 'tpope/vim-abolish'
     use 'tpope/vim-surround'
     -- joining the dark side because I am a big dumb idiot that needs to spell check everything.
-    use {'neoclide/coc.nvim', branch = 'release', }
+    use { 'neoclide/coc.nvim', branch = 'release', }
+    -- trouble for making navigating diagnostics easier
+    use {
+        "folke/trouble.nvim",
+        requires = "nvim-tree/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 end)
