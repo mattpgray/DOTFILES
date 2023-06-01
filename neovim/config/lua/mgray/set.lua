@@ -1,3 +1,8 @@
+--
+-- This should be in the nvim-tree config but this needs to be at the start of the init.lua.
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
