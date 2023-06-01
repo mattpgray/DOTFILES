@@ -12,7 +12,9 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 # Copy config for packer sync
 rm -fr ~/.config/nvim
 mkdir -p ~/.config/nvim
-cp  ${SCRIPT_DIR}/config/lua/mgray/packer.lua ~/.config/nvim/init.lua
+# Copy only packer so that we can install the packages before adding all the config.
+rm -fr ~/.config/nvim
+ln -s ${SCRIPT_DIR}/config ~/.config/nvim
 
 # Run packer sync on first run
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
@@ -20,8 +22,4 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 # TODO: Learn how to spel.
 echo "Installing coc-spell-checker. The logs are misleading. Please wait..."
 nvim --headless +"CocInstall -sync coc-spell-checker|qa"
-
-# Copy all config
-rm -fr ~/.config/nvim
-cp -r ${SCRIPT_DIR}/config ~/.config/nvim
 
