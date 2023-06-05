@@ -57,6 +57,7 @@ local cfg = { bind = true }
 require "lsp_signature".setup(cfg)
 
 vim.diagnostic.config({
-    update_in_insert = true,
+    -- This seems to be too slow unfortunately.
+    -- update_in_insert = true,
     virtual_text = true
 })

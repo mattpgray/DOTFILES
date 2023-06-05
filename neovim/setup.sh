@@ -20,6 +20,5 @@ ln -s ${SCRIPT_DIR}/config ~/.config/nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 # Install the spell checker on the first run. This is takes too long to do every time.
 # TODO: Learn how to spel.
-echo "Installing coc-spell-checker. The logs are misleading. Please wait..."
-nvim --headless +"CocInstall -sync coc-spell-checker|qa"
+${SCRIPT_DIR}/coc.sh
 
