@@ -10,6 +10,7 @@ return require('packer').startup(function(use)
     }
     use 'Mofiqul/dracula.nvim'
     use('nvim-treesitter/nvim-treesitter', { run = 'TSUpdate' })
+
     use 'nvim-treesitter/playground'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
@@ -74,4 +75,13 @@ return require('packer').startup(function(use)
             }
         end
     }
+    -- Used for changing functions/maps/arrays from beingon one line and being on multiple.
+    -- <leader>m for toggling
+    use({
+        'Wansmer/treesj',
+        requires = { 'nvim-treesitter' },
+        config = function()
+            require('treesj').setup({--[[ your config ]]})
+        end,
+    })
 end)
