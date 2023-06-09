@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
 
     use 'nvim-treesitter/playground'
     use 'mbbill/undotree'
-    use 'tpope/vim-fugitive'
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
@@ -59,8 +58,14 @@ return require('packer').startup(function(use)
     }
     -- For easy aligning
     use 'junegunn/vim-easy-align'
+    -- Replacing with smart case detection
     use 'tpope/vim-abolish'
+    -- Surrounding with brackets or functions
     use 'tpope/vim-surround'
+    -- git integration
+    use 'tpope/vim-fugitive'
+    -- Commenting out
+    use 'tpope/vim-commentary'
     -- joining the dark side because I am a big dumb idiot that needs to spell check everything.
     use { 'neoclide/coc.nvim', branch = 'release', }
     -- trouble for making navigating diagnostics easier
