@@ -86,7 +86,7 @@ return require('packer').startup(function(use)
         'Wansmer/treesj',
         requires = { 'nvim-treesitter' },
         config = function()
-            require('treesj').setup({--[[ your config ]]})
+            require('treesj').setup({ --[[ your config ]] })
         end,
     })
 end)
