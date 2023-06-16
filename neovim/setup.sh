@@ -18,7 +18,3 @@ ln -s ${SCRIPT_DIR}/config ~/.config/nvim
 
 # Run packer sync on first run
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-# Install the spell checker on the first run. This is takes too long to do every time.
-# TODO: Learn how to spel.
-${SCRIPT_DIR}/coc.sh
-

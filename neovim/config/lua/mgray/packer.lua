@@ -35,6 +35,8 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'davidmh/cspell.nvim'
     use({
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
@@ -66,8 +68,6 @@ return require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     -- Commenting out
     use 'tpope/vim-commentary'
-    -- joining the dark side because I am a big dumb idiot that needs to spell check everything.
-    use { 'neoclide/coc.nvim', branch = 'release', }
     -- trouble for making navigating diagnostics easier
     use {
         "folke/trouble.nvim",

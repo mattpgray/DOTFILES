@@ -61,3 +61,32 @@ vim.diagnostic.config({
     -- update_in_insert = true,
     virtual_text = true
 })
+
+local null_ls = require('null-ls')
+local cspell = require('cspell')
+local fn = vim.fn
+
+local cspell_file = os.getenv("HOME") .. "/.cspell.json"
+local f = io.open(cspell_file, "r")
+if f ~= nil then
+    io.close(f)
+else
+    print(string.format("Creating new cspell file at %s", cspell_file))
+    f = io.open(cspell_file, "w")
+    assert(f ~= nil, string.format("Could not open file for writing %s", cspell_file))
+    f:write("{}")
+    f:close()
+end
+
+local cspell_config = {
+    find_json = function(cwd)
+        return cspell_file
+    end,
+}
+
+null_ls.setup({
+    sources = {
+        cspell.diagnostics.with({ config = cspell_config }),
+        cspell.code_actions.with({ config = cspell_config }),
+    }
+})
