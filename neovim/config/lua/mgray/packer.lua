@@ -89,4 +89,6 @@ return require('packer').startup(function(use)
             require('treesj').setup({ --[[ your config ]] })
         end,
     })
+    -- Better navigation when using nvim with tmux
+    use "christoomey/vim-tmux-navigator"
 end)

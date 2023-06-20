@@ -10,8 +10,8 @@ rm -fr ~/.tmux/plugins/tpm/ > /dev/null 2>&1 || true
 mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm --depth 1
 
-# Move the config file
+# Link the tmux file
 rm ~/.tmux.conf > /dev/null 2>&1 || true
-cp ${SCRIPT_DIR}/.tmux.conf ~/.tmux.conf
+ln -s ${SCRIPT_DIR}/.tmux.conf ~/.tmux.conf
 
 
