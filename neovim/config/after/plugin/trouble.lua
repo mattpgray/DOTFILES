@@ -31,12 +31,12 @@ vim.keymap.set("n", "<leader>]d", function()
     { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>[f", function()
-        trouble.prev({ skip_groups = true, jump = true });
+        trouble.first({ skip_groups = true, jump = true });
     end,
     { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>]l", function()
-        trouble.prev({ skip_groups = true, jump = true });
+        trouble.last({ skip_groups = true, jump = true });
     end,
     { silent = true, noremap = true }
 )
