@@ -30,6 +30,12 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
 
+local goto_severity = function(goto_f, severity)
+    return function()
+        goto_f({severity = severity})
+    end
+end
+
 function OnAttach(_client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
@@ -41,8 +47,19 @@ function OnAttach(_client, bufnr)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+    -- goto next or prev of any diagnostic
     vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+    -- goto next or prev of error diagnostic
+    vim.keymap.set("n", "[e", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.ERROR), opts)
+    vim.keymap.set("n", "]e", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.ERROR), opts)
+    -- goto next or prev of warning diagnostic
+    vim.keymap.set("n", "[w", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.WARNING), opts)
+    vim.keymap.set("n", "]w", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.WARNING), opts)
+    -- goto next or prev of info diagnostic
+    vim.keymap.set("n", "[i", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.INFO), opts)
+    vim.keymap.set("n", "]i", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.INFO), opts)
+
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
