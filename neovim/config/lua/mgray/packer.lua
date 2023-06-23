@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
             }
         end
     }
-    -- Used for changing functions/maps/arrays from beingon one line and being on multiple.
+    -- Used for changing functions/maps/arrays from being on one line and being on multiple.
     -- <leader>m for toggling
     use({
         'Wansmer/treesj',
@@ -91,4 +91,9 @@ return require('packer').startup(function(use)
     })
     -- Better navigation when using nvim with tmux
     use "christoomey/vim-tmux-navigator"
+    -- Editing an ordinary vim buffer to edit the file system.
+    use {
+        'stevearc/oil.nvim',
+        config = function() require('oil').setup() end
+    }
 end)
