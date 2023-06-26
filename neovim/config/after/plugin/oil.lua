@@ -7,3 +7,10 @@ end
 if file_is_set() then
     vim.cmd [[silent edit .]]
 end
+
+require('oil').setup({
+    view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+    }
+})
