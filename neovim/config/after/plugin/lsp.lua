@@ -32,7 +32,7 @@ lsp.setup_nvim_cmp({
 
 local goto_severity = function(goto_f, severity)
     return function()
-        goto_f({severity = severity})
+        goto_f({ severity = severity })
     end
 end
 
@@ -111,5 +111,13 @@ null_ls.setup({
             config = cspell_config,
         }),
         cspell.code_actions.with({ config = cspell_config }),
-    }
+    },
+    -- A subset of the remaps that we do for all other methods as we want to be able to add
+    -- incorrect spelling to the allow list from any file.
+    -- NOTE: The code action remap must match the remap in the on_attach method for all other
+    -- LSPs.
+    on_attach = function(_client, bufnr)
+        local opts = { buffer = bufnr, remap = false }
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    end
 })
