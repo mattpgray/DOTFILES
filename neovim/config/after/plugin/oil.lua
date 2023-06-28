@@ -8,7 +8,11 @@ if file_is_set() then
     vim.cmd [[silent edit .]]
 end
 
-require('oil').setup({
+local oil = require('oil')
+
+vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
+
+oil.setup({
     view_options = {
         -- Show files and directories that start with "."
         show_hidden = true,
