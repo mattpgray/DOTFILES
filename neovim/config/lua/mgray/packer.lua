@@ -96,4 +96,6 @@ return require('packer').startup(function(use)
         'stevearc/oil.nvim',
         config = function() require('oil').setup() end
     }
+    -- Status bar / power line
+    use 'nvim-lualine/lualine.nvim'
 end)
