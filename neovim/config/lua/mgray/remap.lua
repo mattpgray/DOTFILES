@@ -39,8 +39,8 @@ vim.keymap.set("n", "<leader>f", function()
     vim.lsp.buf.format()
 end)
 
--- Something to do with the quickfist list
--- TODO: Explore this further.
+-- Navigating the items of the quickfix list
+-- TODO: This conflicts with the tmux plugin
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")

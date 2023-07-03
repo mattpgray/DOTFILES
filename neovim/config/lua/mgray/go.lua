@@ -36,4 +36,4 @@ function GoImports()
 end
 
 vim.keymap.set("n", "<leader>gi", GoImports, { silent = true })
-vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()]]
+vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.format()]]

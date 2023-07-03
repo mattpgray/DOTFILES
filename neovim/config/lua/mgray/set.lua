@@ -43,5 +43,10 @@ vim.g.mapleader = " "
 
 -- Because I am a big dumb idiot
 vim.opt.spelllang = 'en_us' -- ew
--- Uncomment for default spelling 
+-- Uncomment for default spelling
 -- vim.opt.spell = true
+
+-- Disable using editor config. My main language is go, and I prefer to have a formatter instead of
+-- an editor config. The settings in editor config tend to disagree with the gofmt a lot of the
+-- time.
+vim.g.editorconfig = false
