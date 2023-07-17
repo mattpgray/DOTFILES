@@ -12,9 +12,11 @@ lsp.configure('lua_ls', {
     }
 })
 
+
 lsp.ensure_installed({
     'lua_ls',
-    'rust_analyzer'
+    'rust_analyzer',
+    'gopls',
 })
 
 local cmp = require('cmp')
@@ -101,6 +103,11 @@ local cspell_config = {
     end,
 }
 
+require("mason-null-ls").setup({
+    ensure_installed = {
+        "cspell",
+    },
+})
 
 null_ls.setup({
     sources = {

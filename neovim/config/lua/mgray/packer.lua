@@ -36,6 +36,13 @@ return require('packer').startup(function(use)
         }
     }
     use 'jose-elias-alvarez/null-ls.nvim'
+    use {
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+    }
     use 'davidmh/cspell.nvim'
     use({
         "iamcco/markdown-preview.nvim",
