@@ -1,17 +1,36 @@
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>pf', function()
+    builtin.find_files({
+        hidden = true,
+    })
+end, {})
 vim.keymap.set('n', '<leader>pi', function()
     builtin.find_files({
         prompt_title = 'find all files including hidden and ignore and following symlinks',
         hidden = true,
         no_ignore = true,
+        no_ignore_parent = true,
         follow = true,
     })
 end, {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fg', function()
+    builtin.live_grep({
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden', -- Normally, I want .dot files to show up in the search if they are checked in.
+        }
+    })
+end, {})
+
 vim.keymap.set('n', '<leader>fi', function()
     builtin.live_grep({
         vimgrep_arguments = {
@@ -22,7 +41,8 @@ vim.keymap.set('n', '<leader>fi', function()
             '--line-number',
             '--column',
             '--smart-case',
-            '-u' -- This allows for searching in ignored files. It means "unrestricted".
+            '--hidden',
+            '-u'        -- This allows for searching in ignored files. It means "unrestricted".
         }
     })
 end, {})
