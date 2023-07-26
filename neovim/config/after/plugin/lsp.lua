@@ -12,8 +12,8 @@ lsp.configure('lua_ls', {
     }
 })
 
-
 lsp.ensure_installed({
+    'pyright',
     'lua_ls',
     'rust_analyzer',
     'gopls',
@@ -129,6 +129,7 @@ local cspell_config = {
 
 require("mason-null-ls").setup({
     ensure_installed = {
+        "black",
         "cspell",
     },
 })
@@ -142,6 +143,7 @@ null_ls.setup({
             config = cspell_config,
         }),
         cspell.code_actions.with({ config = cspell_config }),
+        null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
     },
     -- A subset of the remaps that we do for all other methods as we want to be able to add
     -- incorrect spelling to the allow list from any file.
