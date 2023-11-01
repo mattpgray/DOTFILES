@@ -56,6 +56,20 @@ function OnAttach(_client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end
 
+local lspconfig = require 'lspconfig'
+lspconfig.gopls.setup {
+    -- I am hoping this reattaches the shortcuts that I add at the start.
+    on_attach = OnAttach,
+    settings = {
+        gopls = {
+            buildFlags = { "-tags=unit,integration,gml_example" },
+            directoryFilters = {
+                "-**/node_modules",
+                "-**/kard",
+            },
+        }
+    }
+}
 lsp.on_attach(OnAttach)
 
 lsp.setup()
@@ -135,16 +149,16 @@ require("mason-null-ls").setup({
 })
 
 null_ls.setup({
-    sources = {
-        cspell.diagnostics.with({
-            diagnostics_postprocess = function(diagnostic)
-                diagnostic.severity = vim.diagnostic.severity.INFO
-            end,
-            config = cspell_config,
-        }),
-        cspell.code_actions.with({ config = cspell_config }),
-        null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
-    },
+    -- sources = {
+    --     cspell.diagnostics.with({
+    --         diagnostics_postprocess = function(diagnostic)
+    --             diagnostic.severity = vim.diagnostic.severity.INFO
+    --         end,
+    --         config = cspell_config,
+    --     }),
+    --     cspell.code_actions.with({ config = cspell_config }),
+    --     null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
+    -- },
     -- A subset of the remaps that we do for all other methods as we want to be able to add
     -- incorrect spelling to the allow list from any file.
     -- NOTE: The code action remap must match the remap in the on_attach method for all other

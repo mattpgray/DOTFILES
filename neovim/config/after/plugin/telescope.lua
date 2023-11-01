@@ -13,6 +13,7 @@ vim.keymap.set('n', '<leader>pi', function()
         no_ignore = true,
         no_ignore_parent = true,
         follow = true,
+        search_dirs = {"!.git"},
     })
 end, {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
@@ -27,6 +28,7 @@ vim.keymap.set('n', '<leader>fg', function()
             '--column',
             '--smart-case',
             '--hidden', -- Normally, I want .dot files to show up in the search if they are checked in.
+            '--glob', '!.git/', -- The exception to the above rule is .git folders
         }
     })
 end, {})
@@ -51,6 +53,7 @@ vim.keymap.set('n', '<leader>ps', function()
 end)
 vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>pp', builtin.pickers, {})
+vim.keymap.set('n', '<leader>pr', builtin.lsp_references, {})
 
 telescope.setup {
     defaults = {

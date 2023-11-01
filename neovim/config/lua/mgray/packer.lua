@@ -103,4 +103,11 @@ return require('packer').startup(function(use)
         'stevearc/oil.nvim',
         config = function() require('oil').setup() end
     }
+    -- debugging
+    use 'mfussenegger/nvim-dap' -- general dap support
+    -- go dap runner
+    use {
+        'leoluz/nvim-dap-go',
+        requires = 'mfussenegger/nvim-dap',
+    }
 end)
