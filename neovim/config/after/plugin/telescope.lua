@@ -13,7 +13,6 @@ vim.keymap.set('n', '<leader>pi', function()
         no_ignore = true,
         no_ignore_parent = true,
         follow = true,
-        search_dirs = {"!.git"},
     })
 end, {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
@@ -54,6 +53,7 @@ end)
 vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>pp', builtin.pickers, {})
 vim.keymap.set('n', '<leader>pr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>pm', builtin.marks, {})
 
 telescope.setup {
     defaults = {
