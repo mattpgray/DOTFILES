@@ -21,19 +21,22 @@ PACKAGES=(
 sudo apt-get install -y ${PACKAGES[@]}
 
 # Install neovim
-TEMP_DEB="$(mktemp)".deb
-wget -O "$TEMP_DEB" https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-sudo apt-get install "$TEMP_DEB"
-rm -f "$TEMP_DEB"
+mkdir -p ~/tools/nvim/
+NVIM_FILE=~/tools/nvim/nvim_v0.9.4.appimage
+NVIM_URL=https://github.com/neovim/neovim/releases/download/v0.9.4/nvim.appimage
+wget -O "$NVIM_FILE" "$NVIM_URL"
+chmod u+x "$NVIM_FILE"
+rm /user/local/bin/nvim || true
+sudo ln --symbolic "$NVIM_FILE" /usr/local/bin/nvim 
 
 # Install fircode font
 mkdir -p ~/.fonts \
 ~/.fonts
 
-# Install fonts
-FONT_NAME=FiraCodeRegular
-FONT_FILE=~/.fonts/${FONT_NAME}.otf 
-rm ${FONT_FILE} || true
-curl -fLo "${FONT_FILE}" \
-https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
+# # Install fonts
+# FONT_NAME=FiraCodeRegular
+# FONT_FILE=~/.fonts/${FONT_NAME}.otf 
+# rm ${FONT_FILE} || true
+# curl -fLo "${FONT_FILE}" \
+# https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
 
