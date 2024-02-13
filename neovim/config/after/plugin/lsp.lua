@@ -12,12 +12,12 @@ lsp.configure('lua_ls', {
     }
 })
 
-lsp.ensure_installed({
-    'pyright',
-    'lua_ls',
-    'rust_analyzer',
-    'gopls',
-})
+--  lsp.ensure_installed({
+--      'pyright',
+--      'lua_ls',
+--      'rust_analyzer',
+--      'gopls',
+--  })
 
 
 local goto_severity = function(goto_f, severity)
@@ -72,7 +72,20 @@ lspconfig.gopls.setup {
 }
 lsp.on_attach(OnAttach)
 
-lsp.setup()
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+     'pyright',
+     'lua_ls',
+     'rust_analyzer',
+     'gopls',
+  },
+  handlers = {
+    lsp.default_setup,
+  },
+})
+
+-- lsp.setup()
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }

@@ -13,7 +13,6 @@ vim.keymap.set('n', '<leader>pi', function()
         no_ignore = true,
         no_ignore_parent = true,
         follow = true,
-        search_dirs = {"!.git"},
     })
 end, {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
