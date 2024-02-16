@@ -53,6 +53,7 @@ end)
 vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>pp', builtin.pickers, {})
 vim.keymap.set('n', '<leader>pr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>pm', builtin.marks, {})
 
 telescope.setup {
     defaults = {
