@@ -202,12 +202,10 @@ set $dell_monitor DP-2-2
 workspace 1 output $samsung_monitor
 workspace 2 output $internal_monitor
 workspace 3 output $dell_monitor
-workspace 4 output $dell_monitor
-workspace 5 output $dell_monitor
 
 # exec xrandr --output $samsung_monitor --left-of  $internal_monitor
 # exec xrandr --output $dell_monitor    --right-of $internal_monitor
 # output of arandr
 exec xrandr --output eDP-1 --primary --mode 1920x1200 --pos 1920x0 --rotate normal --output HDMI-1 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-2-1 --off --output DP-2-2 --mode 1920x1080 --pos 3840x0 --rotate normal --output DP-2-3 --mode 1920x1080 --pos 0x80 --rotate normal --output DP-1-0 --off --output DP-1-1 --off
 
-exec --no-startup-id i3-msg 'workspace number 1; exec i3-sensible-terminal; workspace number 2; exec chromium; workspace number 3; exec firefox; workspace number 4; exec 1password; workspace number 5; exec forticlient gui'
+exec --no-startup-id i3-msg 'workspace number 1; exec i3-sensible-terminal; workspace number 2; exec chromium; workspace number 3; exec firefox'
