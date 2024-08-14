@@ -1,12 +1,6 @@
-require('which-key').register({
-    ["<leader>"] = {
-        {
-            t = {
-                name = "+trouble",
-                s = { '+set' },
-            },
-        },
-    },
+require('which-key').add({
+    {"<leader>t", group = "trouble" },
+    {"<leader>ts", desc = "+set" },
 })
 
 local trouble = require("trouble");

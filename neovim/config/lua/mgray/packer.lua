@@ -134,4 +134,6 @@ return require('packer').startup(function(use)
     }
     use 'folke/neodev.nvim'
     -- use 'echasnovski/mini.comment'
+
+    use 'github/copilot.vim'
 end)

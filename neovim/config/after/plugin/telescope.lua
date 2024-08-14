@@ -1,8 +1,8 @@
-require('which-key').register({
-    ["<leader>"] = {
-        { p = { name = "+picker" } },
-        { f = { name = "+file" } }
-    },
+require('which-key').add({
+    -- ["<leader>p"] = { group = "picker" },
+    -- ["<leader>f"] = { group = "file" }
+    { "<leader>f", group = "file" },
+    { "<leader>p", group = "picker" },
 })
 
 local telescope = require('telescope')
