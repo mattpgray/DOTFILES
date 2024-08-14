@@ -1,6 +1,3 @@
--- Open the explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
 -- Allows for highlighted lines to be moved with J and K
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -41,8 +38,8 @@ end)
 
 -- Navigating the items of the quickfix list
 -- TODO: This conflicts with the tmux plugin
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 

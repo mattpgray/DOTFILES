@@ -1,10 +1,20 @@
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
+
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
+
+local lspkind = require 'lspkind'
+lspkind.init {}
 
 -- Fix Undefined global 'vim'
 lsp.configure('lua_ls', {
     settings = {
         Lua = {
+            completion = {
+                callSnippet = "Replace"
+            },
             diagnostics = {
                 globals = { 'vim' }
             }
@@ -56,6 +66,12 @@ function OnAttach(_client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end
 
+vim.filetype.add {
+  pattern = {
+    ['api_spec.*%.ya?ml'] = 'yaml.openapi',
+  },
+}
+
 local lspconfig = require 'lspconfig'
 lspconfig.gopls.setup {
     -- I am hoping this reattaches the shortcuts that I add at the start.
@@ -70,6 +86,24 @@ lspconfig.gopls.setup {
         }
     }
 }
+lspconfig.flux_lsp.setup {
+    cmd = {"flux-lsp", "-l", "/tmp/fluxlsp"},
+}
+
+lspconfig.pyright.setup {
+    -- I am hoping this reattaches the shortcuts that I add at the start.
+    on_attach = OnAttach,
+    -- Custom logic to be able to use the version of python that is in the virtual env.
+    -- Otherwise pyright uses the default python version of the system, which can lead to incorrect
+    -- diagnostics about builtins.
+    before_init = function (params, config)
+        local python_install_path = vim.fn.exepath('python')
+        if python_install_path ~= '' then
+            config.settings.python.pythonPath = python_install_path
+        end
+    end
+}
+
 lsp.on_attach(OnAttach)
 
 require('mason').setup({})
@@ -105,10 +139,11 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 cmp.setup({
     sources = {
-        { name = 'buffer' },
-        { name = 'luasnip' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lua' },
+        { name = 'luasnip' },
+        { name = 'path' },
+        { name = 'buffer' },
     },
     mapping = {
         -- `Enter` key to confirm completion
@@ -120,6 +155,11 @@ cmp.setup({
         -- Navigate between snippet placeholder
         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    },
+    snippet = {
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+        end,
     },
 })
 
@@ -162,7 +202,7 @@ require("mason-null-ls").setup({
 })
 
 null_ls.setup({
-    -- sources = {
+    sources = {
     --     cspell.diagnostics.with({
     --         diagnostics_postprocess = function(diagnostic)
     --             diagnostic.severity = vim.diagnostic.severity.INFO
@@ -170,8 +210,8 @@ null_ls.setup({
     --         config = cspell_config,
     --     }),
     --     cspell.code_actions.with({ config = cspell_config }),
-    --     null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
-    -- },
+        null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
+    },
     -- A subset of the remaps that we do for all other methods as we want to be able to add
     -- incorrect spelling to the allow list from any file.
     -- NOTE: The code action remap must match the remap in the on_attach method for all other

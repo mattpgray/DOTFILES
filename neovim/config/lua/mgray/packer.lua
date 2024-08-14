@@ -6,7 +6,10 @@ return require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = {
+            { "nvim-telescope/telescope-live-grep-args.nvim" },
+            { 'nvim-lua/plenary.nvim' },
+        }
     }
     use 'Mofiqul/dracula.nvim'
     use('nvim-treesitter/nvim-treesitter', { run = 'TSUpdate' })
@@ -39,6 +42,8 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },
             -- Snippet Collection (Optional)
             { 'rafamadriz/friendly-snippets' },
+            -- prettier icons
+            { 'onsails/lspkind.nvim' },
         }
     }
     use 'jose-elias-alvarez/null-ls.nvim'
@@ -79,8 +84,6 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     -- git integration
     use 'tpope/vim-fugitive'
-    -- Commenting out
-    use 'tpope/vim-commentary'
     -- trouble for making navigating diagnostics easier
     use {
         "folke/trouble.nvim",
@@ -98,9 +101,6 @@ return require('packer').startup(function(use)
     use({
         'Wansmer/treesj',
         requires = { 'nvim-treesitter' },
-        config = function()
-            require('treesj').setup({ --[[ your config ]] })
-        end,
     })
     -- Better navigation when using nvim with tmux
     use "christoomey/vim-tmux-navigator"
@@ -109,11 +109,29 @@ return require('packer').startup(function(use)
         'stevearc/oil.nvim',
         config = function() require('oil').setup() end
     }
-    -- debugging
-    use 'mfussenegger/nvim-dap' -- general dap support
-    -- go dap runner
+
     use {
-        'leoluz/nvim-dap-go',
-        requires = 'mfussenegger/nvim-dap',
+        "mfussenegger/nvim-dap",
+        requires = {
+            "leoluz/nvim-dap-go",
+            "rcarriga/nvim-dap-ui",
+            -- "theHamsta/nvim-dap-virtual-text",
+            "nvim-neotest/nvim-nio",
+            'theHamsta/nvim-dap-virtual-text'
+        },
     }
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+    use 'folke/neodev.nvim'
+    -- use 'echasnovski/mini.comment'
 end)

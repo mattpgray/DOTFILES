@@ -31,8 +31,8 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.textwidth = 100 -- Much more sensible text width for >=2023
-vim.opt.colorcolumn = "100"
+vim.opt.textwidth = 80
+vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
 vim.opt.listchars = {
@@ -50,3 +50,10 @@ vim.opt.spelllang = 'en_us' -- ew
 -- an editor config. The settings in editor config tend to disagree with the gofmt a lot of the
 -- time.
 vim.g.editorconfig = false
+
+-- Highlight what has been yanked momentarily
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank { higroup = 'Visual', timeout = 150 }
+    end
+})
