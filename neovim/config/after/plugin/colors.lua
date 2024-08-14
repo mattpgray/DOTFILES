@@ -36,6 +36,7 @@ dracula.setup({
 		return {
 			EndOfBuffer = { fg = colors.bright_red }, -- set NonText fg to white of theme
 			ExtraWhitespace = { bg = colors.bright_red },
+			CopilotSuggestion = { fg =  colors.bright_cyan, bg = colors.bg, italic = true },
 		}
 	end,
 })
