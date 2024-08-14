@@ -136,4 +136,8 @@ return require('packer').startup(function(use)
     -- use 'echasnovski/mini.comment'
 
     use 'github/copilot.vim'
+
+    use {
+        "klen/nvim-config-local",
+    }
 end)
