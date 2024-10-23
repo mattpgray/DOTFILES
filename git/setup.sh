@@ -13,3 +13,4 @@ git config --global alias.sign '!re() { git rebase --exec '"'"'git commit --amen
 # Interactive git branch switching
 git config --global alias.checkoutinteractive '!git checkout $(git branch $@ | fzf | xargs)'
 
+git config --global core.excludesFile "$HOME/.gitignore"
