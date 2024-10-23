@@ -78,7 +78,11 @@ telescope.setup {
                 ["<C-h>"] = "which_key",
                 ['<c-d>'] = actions.delete_buffer
             }
-        }
+        },
+        cache_picker = {
+            num_pickers = 50,
+            limit_entries = 1000
+        },
     },
 }
 

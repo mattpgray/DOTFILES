@@ -1,13 +1,19 @@
 require('which-key').add({
-    {"<leader>t", group = "trouble" },
-    {"<leader>ts", desc = "+set" },
+    { "<leader>t",  group = "trouble" },
+    { "<leader>ts", desc = "+set" },
 })
 
 local trouble = require("trouble");
 
-vim.keymap.set("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>",
-    { silent = true, noremap = true, desc = "(T)rouble (T)oggle"}
+vim.keymap.set(
+    "n",
+    "<leader>tt",
+    function()
+        vim.cmd("Trouble diagnostics toggle")
+    end,
+    { silent = true, noremap = true, desc = "(T)rouble (T)oggle" }
 )
+
 vim.keymap.set("n", "<leader>tw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
     { silent = true, noremap = true, desc = "(T)rouble (W)orkspace diagnostics" }
 )
@@ -33,18 +39,18 @@ local set_diagnostic = function(keymap, severity, desc_suffix)
             trouble.setup({ severity = severity })
             trouble.refresh()
         end,
-        { silent = true, noremap = true, desc = '(T)rouble (S)et level ' .. desc_suffix})
+        { silent = true, noremap = true, desc = '(T)rouble (S)et level ' .. desc_suffix })
 end
 
 set_diagnostic("<leader>tsd", nil, '(D)iagnostic') -- all diagnostics
-set_diagnostic("<leader>tse", vim.diagnostic.severity.ERROR, '(E)rror' )
+set_diagnostic("<leader>tse", vim.diagnostic.severity.ERROR, '(E)rror')
 set_diagnostic("<leader>tsw", vim.diagnostic.severity.WARN, '(W)arn')
 set_diagnostic("<leader>tsi", vim.diagnostic.severity.INFO, '(I)nfo')
 
 vim.keymap.set("n", "<leader>[d", function()
         trouble.next({ skip_groups = true, jump = true });
     end,
-    { silent = true, noremap = true,}
+    { silent = true, noremap = true, }
 )
 vim.keymap.set("n", "<leader>]d", function()
         trouble.prev({ skip_groups = true, jump = true });

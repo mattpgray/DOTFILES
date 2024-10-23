@@ -1,6 +1,17 @@
 function SetGoTag(tag)
 end
 
+function GoBuild(tag)
+    os.execute("mkdir -p /tmp/go-build")
+    local cache_makeprg = vim.opt.makeprg
+    local cache_errorformat = vim.opt.errorformat
+    vim.opt.makeprg = "go build -o /tmp/go-build -tags \"" .. tag .. "\" ./..."
+    vim.opt.errorformat = "vet: %f:%l:%c: %m, %f:%l:%c: %m"
+    vim.cmd [[:make]]
+    vim.opt.makeprg = cache_makeprg
+    vim.opt.errorformat = cache_errorformat
+end
+
 function GoVet(tag)
     local cache_makeprg = vim.opt.makeprg
     local cache_errorformat = vim.opt.errorformat

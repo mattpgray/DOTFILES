@@ -1,5 +1,5 @@
+vim.g.copilot_workspace_folders  = { "~/gml/gml", "/home/mgray/copolit-answers" }
 --
--- This should be in the nvim-tree config but this needs to be at the start of the init.lua.
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 

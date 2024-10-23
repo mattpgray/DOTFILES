@@ -69,13 +69,6 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
     -- Adds file nav bar to the top
     use { 'romgrk/barbar.nvim', requires = 'nvim-web-devicons' }
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        tag = 'nightly'
-    }
     -- For easy aligning
     use 'junegunn/vim-easy-align'
     -- Replacing with smart case detection
@@ -107,7 +100,7 @@ return require('packer').startup(function(use)
     -- Editing an ordinary vim buffer to edit the file system.
     use {
         'stevearc/oil.nvim',
-        config = function() require('oil').setup() end
+        -- config = function() require('oil').setup() end
     }
 
     use {
@@ -140,4 +133,6 @@ return require('packer').startup(function(use)
     use {
         "klen/nvim-config-local",
     }
+
+    use {"artemave/workspace-diagnostics.nvim"}
 end)

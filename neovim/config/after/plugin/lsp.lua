@@ -2,6 +2,18 @@ require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
+-- inlay hints
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+--     callback = function(args)
+--         local client = vim.lsp.get_client_by_id(args.data.client_id)
+--         if client.server_capabilities.inlayHintProvider then
+--             vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+--         end
+--         -- whatever other lsp config you want
+--     end
+-- })
+
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
@@ -36,7 +48,7 @@ local goto_severity = function(goto_f, severity)
     end
 end
 
-function OnAttach(_client, bufnr)
+function OnAttach(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -48,22 +60,27 @@ function OnAttach(_client, bufnr)
     vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
     -- goto next or prev of any diagnostic
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
     -- goto next or prev of error diagnostic
-    vim.keymap.set("n", "[e", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.ERROR), opts)
-    vim.keymap.set("n", "]e", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.ERROR), opts)
+    vim.keymap.set("n", "]e", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.ERROR), opts)
+    vim.keymap.set("n", "[e", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.ERROR), opts)
     -- goto next or prev of warning diagnostic
-    vim.keymap.set("n", "[w", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.WARNING), opts)
-    vim.keymap.set("n", "]w", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.WARNING), opts)
+    vim.keymap.set("n", "]w", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.WARNING), opts)
+    vim.keymap.set("n", "[w", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.WARNING), opts)
     -- goto next or prev of info diagnostic
-    vim.keymap.set("n", "[i", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.INFO), opts)
-    vim.keymap.set("n", "]i", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.INFO), opts)
+    vim.keymap.set("n", "]i", goto_severity(vim.diagnostic.goto_next, vim.diagnostic.severity.INFO), opts)
+    vim.keymap.set("n", "[i", goto_severity(vim.diagnostic.goto_prev, vim.diagnostic.severity.INFO), opts)
 
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+
+    -- Takes too long
+    -- TODO: Need to find a nice way of activating this optionally.
+    -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 
 vim.filetype.add {
@@ -72,10 +89,18 @@ vim.filetype.add {
   },
 }
 
+
+vim.filetype.add({
+  pattern = {
+    ['.*/*.gotmpl'] = 'gotmpl',
+  },
+})
+
 local lspconfig = require 'lspconfig'
 lspconfig.gopls.setup {
     -- I am hoping this reattaches the shortcuts that I add at the start.
     on_attach = OnAttach,
+    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
     settings = {
         gopls = {
             buildFlags = { "-tags=unit,integration,gml_example" },
@@ -83,9 +108,63 @@ lspconfig.gopls.setup {
                 "-**/node_modules",
                 "-**/kard",
             },
+            templateExtensions = { "gotmpl" },
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+                unreachable = true,
+                shadow = true,
+            },
+            hints = {
+                assignVariableTypes    = true,
+                constantValues         = true,
+                functionTypeParameters = true,
+                parameterNames         = true,
+                rangeVariableTypes     = true,
+            },
         }
     }
 }
+
+-- {
+--   default_config = {
+--     cmd = { 'gopls' },
+--     filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+--     root_dir = function(fname)
+--       -- see: https://github.com/neovim/nvim-lspconfig/issues/804
+--       if not mod_cache then
+--         local result = async.run_command { 'go', 'env', 'GOMODCACHE' }
+--         if result and result[1] then
+--           mod_cache = vim.trim(result[1])
+--         end
+--       end
+--       if fname:sub(1, #mod_cache) == mod_cache then
+--         local clients = util.get_lsp_clients { name = 'gopls' }
+--         if #clients > 0 then
+--           return clients[#clients].config.root_dir
+--         end
+--       end
+--       return util.root_pattern('go.work', 'go.mod', '.git')(fname)
+--     end,
+--     single_file_support = true,
+--   },
+--   docs = {
+--     description = [[
+-- https://github.com/golang/tools/tree/master/gopls
+--
+-- Google's lsp server for golang.
+-- ]],
+--     default_config = {
+--       root_dir = [[root_pattern("go.work", "go.mod", ".git")]],
+--     },
+--   },
+-- }
+
+
+
+
+
+
 lspconfig.flux_lsp.setup {
     cmd = {"flux-lsp", "-l", "/tmp/fluxlsp"},
 }

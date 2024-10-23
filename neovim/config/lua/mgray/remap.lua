@@ -40,8 +40,8 @@ end)
 -- TODO: This conflicts with the tmux plugin
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "]a", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "[a", "<cmd>lprev<CR>zz")
 
 -- Replace the current word in the entire buffer
 vim.keymap.set("n", "<leader>s", [[:%sno/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
