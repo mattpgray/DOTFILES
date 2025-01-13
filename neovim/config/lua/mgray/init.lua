@@ -3,6 +3,7 @@ require("mgray.packer")
 require("mgray.set")
 require("mgray.remap")
 require("mgray.go")
+require("mgray.commands")
 
 local myplug = require("myplug")
 myplug.load_plugins("before")
