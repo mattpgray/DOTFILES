@@ -62,9 +62,57 @@ vim.keymap.set('n', '<leader>pp', builtin.pickers, { desc = '(P)ick (P)ickers' }
 vim.keymap.set('n', '<leader>pr', function()
     -- the default settings truncate the file path. The preview contains the contents, so I think
     -- being able to see the file path is more useful.
-    builtin.lsp_references({show_line = false})
+    builtin.lsp_references({ show_line = false })
 end, { desc = '(P)ick (R)eferences' })
 vim.keymap.set('n', '<leader>pm', builtin.marks, { desc = '(P)ick (M)arks' })
+
+-- This function is a copy of the default buffer_previewer_maker, but it only
+-- previews files that are less than 100kb.
+local previewers = require('telescope.previewers')
+
+local new_maker = function(filepath, bufnr, opts)
+    opts = opts or {}
+
+    filepath = vim.fn.expand(filepath)
+    vim.loop.fs_stat(filepath, function(_, stat)
+        if not stat then return end
+        if stat.size > 100000 then
+            return
+        else
+            previewers.buffer_previewer_maker(filepath, bufnr, opts)
+        end
+    end)
+end
+
+local previewers = require('telescope.previewers')
+
+-- Skipping highliting on preview on large js files as it causes nvim to freeze for several
+-- seconds.
+--
+-- https://github.com/nvim-telescope/telescope.nvim/issues/623#issuecomment-792233601
+local _bad = { '.*%.standalone.js', '.*%.min.js' }
+local bad_files = function(filepath)
+    for _, v in ipairs(_bad) do
+        if filepath:match(v) then
+            return false
+        end
+    end
+
+    return true
+end
+
+local new_maker = function(filepath, bufnr, opts)
+    opts = opts or {}
+    if opts.use_ft_detect == nil then opts.use_ft_detect = true end
+    opts.use_ft_detect = opts.use_ft_detect == false and false or bad_files(filepath)
+    previewers.buffer_previewer_maker(filepath, bufnr, opts)
+end
+
+require('telescope').setup {
+    defaults = {
+        buffer_previewer_maker = new_maker,
+    }
+}
 
 telescope.setup {
     defaults = {
@@ -79,6 +127,7 @@ telescope.setup {
                 ['<c-d>'] = actions.delete_buffer
             }
         },
+        buffer_previewer_maker = new_maker,
         cache_picker = {
             num_pickers = 50,
             limit_entries = 1000
@@ -88,4 +137,5 @@ telescope.setup {
 
 telescope.load_extension("live_grep_args")
 
-vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "(F)ile grep with (A)rgs" })
+vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+    { desc = "(F)ile grep with (A)rgs" })
