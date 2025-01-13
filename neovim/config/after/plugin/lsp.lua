@@ -1,5 +1,5 @@
 require("neodev").setup({
-  library = { plugins = { "nvim-dap-ui" }, types = true },
+    library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
 -- inlay hints
@@ -79,21 +79,21 @@ function OnAttach(client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
     -- Takes too long
-    -- TODO: Need to find a nice way of activating this optionally.
+    --
     -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 
 vim.filetype.add {
-  pattern = {
-    ['api_spec.*%.ya?ml'] = 'yaml.openapi',
-  },
+    pattern = {
+        ['api_spec.*%.ya?ml'] = 'yaml.openapi',
+    },
 }
 
 
 vim.filetype.add({
-  pattern = {
-    ['.*/*.gotmpl'] = 'gotmpl',
-  },
+    pattern = {
+        ['.*/*.gotmpl'] = 'gotmpl',
+    },
 })
 
 local lspconfig = require 'lspconfig'
@@ -109,7 +109,7 @@ lspconfig.gopls.setup {
                 "-**/kard",
             },
             templateExtensions = { "gotmpl" },
-            usePlaceholders = true,
+            -- usePlaceholders = true,
             analyses = {
                 unusedparams = true,
                 unreachable = true,
@@ -166,7 +166,7 @@ lspconfig.gopls.setup {
 
 
 lspconfig.flux_lsp.setup {
-    cmd = {"flux-lsp", "-l", "/tmp/fluxlsp"},
+    cmd = { "flux-lsp", "-l", "/tmp/fluxlsp" },
 }
 
 lspconfig.pyright.setup {
@@ -175,27 +175,38 @@ lspconfig.pyright.setup {
     -- Custom logic to be able to use the version of python that is in the virtual env.
     -- Otherwise pyright uses the default python version of the system, which can lead to incorrect
     -- diagnostics about builtins.
-    before_init = function (params, config)
+    before_init = function(params, config)
         local python_install_path = vim.fn.exepath('python')
         if python_install_path ~= '' then
             config.settings.python.pythonPath = python_install_path
         end
-    end
+    end,
+
+    handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                -- delay update diagnostics. Unbelievably slow without this.
+                -- Updates the diagnostics one character at a time even when I
+                -- am done typing.
+                update_in_insert = false,
+            }
+        ),
+    }
 }
 
 lsp.on_attach(OnAttach)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {
-     'pyright',
-     'lua_ls',
-     'rust_analyzer',
-     'gopls',
-  },
-  handlers = {
-    lsp.default_setup,
-  },
+    ensure_installed = {
+        'pyright',
+        'lua_ls',
+        'rust_analyzer',
+        'gopls',
+    },
+    handlers = {
+        lsp.default_setup,
+    },
 })
 
 -- lsp.setup()
@@ -247,7 +258,7 @@ require "lsp_signature".setup(cfg)
 
 vim.diagnostic.config({
     -- This seems to be too slow unfortunately.
-    -- update_in_insert = true,
+    update_in_insert = false,
     virtual_text = true
 })
 
@@ -282,13 +293,13 @@ require("mason-null-ls").setup({
 
 null_ls.setup({
     sources = {
-    --     cspell.diagnostics.with({
-    --         diagnostics_postprocess = function(diagnostic)
-    --             diagnostic.severity = vim.diagnostic.severity.INFO
-    --         end,
-    --         config = cspell_config,
-    --     }),
-    --     cspell.code_actions.with({ config = cspell_config }),
+        --     cspell.diagnostics.with({
+        --         diagnostics_postprocess = function(diagnostic)
+        --             diagnostic.severity = vim.diagnostic.severity.INFO
+        --         end,
+        --         config = cspell_config,
+        --     }),
+        --     cspell.code_actions.with({ config = cspell_config }),
         null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "99" } }),
     },
     -- A subset of the remaps that we do for all other methods as we want to be able to add
