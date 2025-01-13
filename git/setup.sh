@@ -14,3 +14,6 @@ git config --global alias.sign '!re() { git rebase --exec '"'"'git commit --amen
 git config --global alias.checkoutinteractive '!git checkout $(git branch $@ | fzf | xargs)'
 
 git config --global core.excludesFile "$HOME/.gitignore"
+
+# Better version of merge conflicts with three way merging
+git config --global merge.conflictstyle diff3
