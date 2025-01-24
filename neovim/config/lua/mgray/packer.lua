@@ -135,4 +135,7 @@ return require('packer').startup(function(use)
     }
 
     use {"artemave/workspace-diagnostics.nvim"}
+
+    -- salt files
+    use 'saltstack/salt-vim'
 end)
