@@ -65,28 +65,14 @@ vim.keymap.set('n', '<leader>pr', function()
     builtin.lsp_references({ show_line = false })
 end, { desc = '(P)ick (R)eferences' })
 vim.keymap.set('n', '<leader>pm', builtin.marks, { desc = '(P)ick (M)arks' })
+vim.keymap.set('n', '<leader>pc', builtin.current_buffer_fuzzy_find , { desc = '(P)ick (C)urrent buffer fuzzy' })
+vim.keymap.set('n', '<leader>pt', builtin.builtin , { desc = '(P)ick (T)elescope builtin pickers' })
 
 -- This function is a copy of the default buffer_previewer_maker, but it only
 -- previews files that are less than 100kb.
 local previewers = require('telescope.previewers')
 
-local new_maker = function(filepath, bufnr, opts)
-    opts = opts or {}
-
-    filepath = vim.fn.expand(filepath)
-    vim.loop.fs_stat(filepath, function(_, stat)
-        if not stat then return end
-        if stat.size > 100000 then
-            return
-        else
-            previewers.buffer_previewer_maker(filepath, bufnr, opts)
-        end
-    end)
-end
-
-local previewers = require('telescope.previewers')
-
--- Skipping highliting on preview on large js files as it causes nvim to freeze for several
+-- Skipping highlighting on preview on large js files as it causes nvim to freeze for several
 -- seconds.
 --
 -- https://github.com/nvim-telescope/telescope.nvim/issues/623#issuecomment-792233601
